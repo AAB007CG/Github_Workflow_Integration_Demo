@@ -27,4 +27,28 @@ namespace D365Plugins
             }
         }
     }
+
+    public class PreAccountUpdate : IPlugin
+    {
+        public void Execute(IServiceProvider serviceProvider)
+        {
+            IPluginExecutionContext context = (IPluginExecutionContext)serviceProvider.GetService(typeof(IPluginExecutionContext));
+            IOrganizationServiceFactory serviceFactory = (IOrganizationServiceFactory)serviceProvider.GetService(typeof(IOrganizationServiceFactory));
+            IOrganizationService service = serviceFactory.CreateOrganizationService(context.UserId);
+
+            Entity account = (Entity)context.InputParameters["Target"];
+
+            if (!account.Contains("accountnumber"))
+            {
+                throw new InvalidPluginExecutionException("Account Number is required for updates.");
+            }
+
+            string accountNumber = account.GetAttributeValue<string>("accountnumber");
+
+            if (string.IsNullOrWhiteSpace(accountNumber))
+            {
+                throw new InvalidPluginExecutionException("Account Number cannot be empty.");
+            }
+        }
+    }
 }
