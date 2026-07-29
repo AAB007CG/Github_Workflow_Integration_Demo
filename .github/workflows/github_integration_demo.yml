@@ -65,6 +65,6 @@ jobs:
           projectBaseDir: .
           args: |
             -Dsonar.organization=aab007cg-1
-            -Dsonar.projectKey=AAB007CG_Sonarcloud-demo
-            -Dsonar.projectName=Sonarcloud-demo
+            -Dsonar.projectKey=AAB007CG_Github_Workflow_Integration_Demo
+            -Dsonar.projectName=Github_Workflow_Integration_Demo
             -Dsonar.sources=.
